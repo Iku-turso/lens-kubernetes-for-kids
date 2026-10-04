@@ -1,6 +1,6 @@
 {
   "name": "@k8slens/kubernetes-for-kids",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Kubernetes explained like you are five: a storybook tab in Lens that also describes your own clusters.",
   "keywords": [
     "lens-extension",
