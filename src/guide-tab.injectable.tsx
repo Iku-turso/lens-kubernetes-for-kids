@@ -8,6 +8,8 @@ import { type Chapter, chapters, quizQuestions } from "./chapters";
 import { guideStateInjectable } from "./guide-state.injectable";
 import { guideTabKind } from "./guide-tab-kind";
 import styles from "./guide.module.scss";
+import { AskAboutPage } from "./ask-about-page";
+import { ChapterIllustration } from "./illustrations";
 import { Towns } from "./towns";
 
 const GuideTitle = (_props: TabProps<typeof mainViewTabHostKind>) => <Div>🧸 Kubernetes for Kids</Div>;
@@ -19,8 +21,8 @@ const ChapterList = observer(() => {
   return (
     <Div
       $flex={{ direction: "vertical", gap: "xxs" }}
+      $className={styles.chapterList}
       $padding="m"
-      $width={{ min: "11xl", width: "11xl", max: "11xl" }}
       $backgroundColor="backgroundSecondary"
       $overflow="auto"
     >
@@ -30,14 +32,14 @@ const ChapterList = observer(() => {
       {chapters.map((chapter, index) => (
         <ClickableDiv
           key={chapter.id}
-          $flex={{ direction: "horizontal", gap: "s", verticalAlign: "center" }}
-          $padding={{ horizontal: "s", vertical: "xs" }}
+          $flex={{ direction: "horizontal", gap: "m", verticalAlign: "center" }}
+          $padding={{ horizontal: "s", vertical: "s" }}
           $border={{ radius: "m" }}
           $interactive={{ active: chapter.id === current.id }}
           $color={chapter.id === current.id ? "textHighlight" : "textDefault"}
           $onClick={() => guideState.goTo(chapter.id)}
         >
-          <Span>{chapter.emoji}</Span>
+          <Span $className={styles.chapterIcon}>{chapter.emoji}</Span>
           <Span>
             {index + 1}. {chapter.title}
           </Span>
@@ -139,6 +141,10 @@ const ChapterPage = observer(() => {
           </Div>
         </Div>
 
+        <Div $border={{ color: "borderPrimary", width: "xxs", radius: "l" }} $overflow="hidden">
+          <ChapterIllustration chapterId={chapter.id} label={`Illustration: ${chapter.title}`} />
+        </Div>
+
         {chapter.story.map((paragraph) => (
           <P key={paragraph} $className={styles.story}>
             {paragraph}
@@ -150,7 +156,7 @@ const ChapterPage = observer(() => {
         {chapter.grownUpWord && (
           <InfoBox heading="🎓 THE GROWN-UP WORD">
             <Span $font={{ bold: true }}>{chapter.grownUpWord.word}</Span>
-            <Span $color="textMuted">{chapter.grownUpWord.meaning}</Span>
+            <Span>{chapter.grownUpWord.meaning}</Span>
           </InfoBox>
         )}
 
@@ -159,6 +165,8 @@ const ChapterPage = observer(() => {
             <Span>{chapter.seeItInLens}</Span>
           </InfoBox>
         )}
+
+        <AskAboutPage />
 
         <Div $flex={{ direction: "horizontal", gap: "s", horizontalAlign: "space-between" }} $padding={{ top: "l" }}>
           <PlainButton $disabled={!guideState.hasPrevious.get()} onClick={guideState.goToPrevious}>

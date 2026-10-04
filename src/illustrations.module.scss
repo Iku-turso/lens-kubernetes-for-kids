@@ -1,0 +1,237 @@
+// Animations of the picture-book scenes. Each class goes on a wrapper <g> that has no transform
+// attribute of its own: a CSS transform would replace it rather than add to it.
+
+@mixin around($origin: center) {
+  transform-box: fill-box;
+  transform-origin: $origin;
+}
+
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.bob {
+  @include around;
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+.hop {
+  @include around(50% 100%);
+  animation: hop 1.4s ease-in-out infinite;
+}
+
+.sway {
+  @include around(50% 100%);
+  animation: sway 3s ease-in-out infinite;
+}
+
+.wiggle {
+  @include around;
+  animation: sway 0.9s ease-in-out infinite;
+}
+
+.spin {
+  @include around;
+  animation: spin 14s linear infinite;
+}
+
+.drift {
+  animation: drift 14s ease-in-out infinite;
+}
+
+.march {
+  animation: march 2s linear infinite;
+}
+
+.blink {
+  @include around;
+  animation: blink 4.5s ease-in-out infinite;
+}
+
+.pulse {
+  @include around;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.ring {
+  @include around;
+  animation: ring 2.6s ease-in-out infinite;
+}
+
+.walk {
+  animation: walk 7s linear infinite;
+}
+
+.fall {
+  @include around;
+  animation: fall 4s linear infinite;
+}
+
+.rise {
+  @include around;
+  animation: rise 2.8s ease-out infinite;
+}
+
+.melt {
+  @include around(50% 100%);
+  animation: melt 7s ease-in-out infinite;
+}
+
+.whileMelted {
+  animation: whileMelted 7s ease-in-out infinite;
+}
+
+.whileRebuilt {
+  animation: whileRebuilt 7s ease-in-out infinite;
+}
+
+.drive {
+  animation: drive 9s linear infinite;
+}
+
+.lookAround {
+  @include around(50% 100%);
+  animation: lookAround 4s ease-in-out infinite;
+}
+
+.flutter {
+  @include around(50% 0%);
+  animation: flutter 2.2s ease-in-out infinite;
+}
+
+.wobble {
+  @include around;
+  animation: wobble 3s ease-in-out infinite;
+}
+
+.twinkle {
+  @include around;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes hop {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  10% { transform: translateY(0) scale(1.08, 0.9); }
+  40% { transform: translateY(-16px) scale(0.96, 1.05); }
+  70% { transform: translateY(0) scale(1.06, 0.94); }
+  85% { transform: translateY(0) scale(1, 1); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(36px); }
+}
+
+@keyframes march {
+  to { stroke-dashoffset: -48; }
+}
+
+@keyframes blink {
+  0%, 44%, 50%, 100% { transform: scaleY(1); }
+  47% { transform: scaleY(0.1); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+@keyframes ring {
+  0%, 30%, 100% { transform: rotate(0deg); }
+  4%, 12%, 20% { transform: rotate(-9deg); }
+  8%, 16%, 24% { transform: rotate(9deg); }
+}
+
+@keyframes walk {
+  0% { transform: translateX(0); opacity: 0; }
+  8% { opacity: 1; }
+  80% { transform: translateX(86px); opacity: 1; }
+  90%, 100% { transform: translateX(90px); opacity: 0; }
+}
+
+@keyframes fall {
+  0% { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(150px) rotate(540deg); opacity: 0; }
+}
+
+@keyframes rise {
+  0% { transform: translateY(10px) scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-46px) scale(1.1); opacity: 0; }
+}
+
+// The third snowman: standing, melting into a puddle, gone, then built again.
+@keyframes melt {
+  0%, 30% { transform: scale(1, 1); opacity: 1; }
+  40% { transform: scale(1.25, 0.35); opacity: 1; }
+  48%, 66% { transform: scale(1.4, 0); opacity: 0; }
+  80% { transform: scale(0.95, 1.08); opacity: 1; }
+  88%, 100% { transform: scale(1, 1); opacity: 1; }
+}
+
+@keyframes whileMelted {
+  0%, 36% { opacity: 0; }
+  44%, 66% { opacity: 1; }
+  74%, 100% { opacity: 0; }
+}
+
+@keyframes whileRebuilt {
+  0%, 74% { opacity: 0; }
+  80%, 96% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes drive {
+  from { transform: translateX(-80px); }
+  to { transform: translateX(600px); }
+}
+
+@keyframes lookAround {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+
+@keyframes flutter {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(-2deg); }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-18deg); }
+  50% { transform: rotate(18deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(-4deg); }
+  50% { transform: scale(1.08) rotate(4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene,
+  .scene * {
+    animation: none !important;
+  }
+
+  .whileMelted,
+  .whileRebuilt {
+    opacity: 0;
+  }
+}

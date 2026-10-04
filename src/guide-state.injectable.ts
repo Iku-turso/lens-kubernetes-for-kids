@@ -10,6 +10,7 @@ export const guideStateInjectable = getInjectable2({
     const currentChapterId = observable.box<ChapterId>("hello");
     const highlightedClusterId = observable.box<string | undefined>(undefined);
     const quizAnswers = observable.map<string, number>();
+    const askPanelIsOpen = observable.box(false);
 
     const currentIndex = computed(() => chapters.findIndex((chapter) => chapter.id === currentChapterId.get()));
 
@@ -35,6 +36,9 @@ export const guideStateInjectable = getInjectable2({
         highlightedClusterId.set(clusterId);
         currentChapterId.set("your-towns");
       }),
+
+      askPanelIsOpen: computed(() => askPanelIsOpen.get()),
+      toggleAskPanel: action(() => askPanelIsOpen.set(!askPanelIsOpen.get())),
 
       answerOf: (questionId: string) => quizAnswers.get(questionId),
       answer: action((questionId: string, answerIndex: number) => {
